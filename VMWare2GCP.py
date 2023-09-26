@@ -85,7 +85,7 @@ print("--------------------------------------------")
 
 #Create a GCP VM instance from the uploaded OVA
 create_instance_command = f"gcloud compute instances import {gcp_instance_name} --project={gcp_project} --zone={gcp_zone}  --source-uri=gs://{gcp_bucket}/{ova_file} --machine-type={gcp_machine_type}"
-print("Create a GCP VM instance for the uploaded OVA file")
+print("Create a GCP VM instance from the uploaded OVA file")
 subprocess.run(create_instance_command, shell=True, check=True)
 print("GCP VM instance was created")
 print("--------------------------------------------")
@@ -96,7 +96,7 @@ print("--------------------------------------------")
 # delete OVA file on GCP's cloud storage
 print("Housekeeping now")
 delete_gcp_ova_file_cmd = f"gsutil rm gs://{gcp_bucket}/{ova_file}"
-print("deleting OVA file on GCP")
+print("delete OVA file on GCP")
 subprocess.run(delete_gcp_ova_file_cmd, shell=True, check=True)
 print("OVA file on GCP was deleted")
 print("--------------------------------------------")
@@ -104,7 +104,7 @@ print("--------------------------------------------")
 
 # delete local OVA file
 delete_local_ova_file_cmd = f"del {vmdk_path}\{ova_file}"
-print("deleting local OVA file")
+print("delete local OVA file")
 subprocess.run(delete_local_ova_file_cmd, shell=True, check=True)
 print("local OVA file was deleted")
 print("--------------------------------------------")
