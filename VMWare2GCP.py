@@ -83,7 +83,7 @@ print("Uploading is completed")
 
 
 #Create a GCP VM instance from the uploaded OVA
-create_instance_command = f"gcloud compute instances import {gcp_instance_name} --zone={gcp_zone}  --source-uri=gs://{gcs_bucket}/{ova_file} --machine-type={gcp_machine_type}"
+create_instance_command = f"gcloud compute instances import {gcp_instance_name} --project={gcp_project} --zone={gcp_zone}  --source-uri=gs://{gcs_bucket}/{ova_file} --machine-type={gcp_machine_type}"
 subprocess.run(create_instance_command, shell=True, check=True)
 
 
