@@ -1,7 +1,7 @@
 import subprocess
 import time
 
-# Replace with your values
+# Replace with your values###########
 ovf_tool = 'C:\\Program Files\\VMware\\VMware OVF Tool\\ovftool.exe'
 vmdk_path ='G:\\VMWare-VMs\\UbuntuServer20046'
 vmx_file = 'UbuntuServer20046.vmx'
@@ -11,6 +11,9 @@ gcp_instance_name = "ubuntuserver20046-vm-01"
 gcp_zone = "asia-east1-b"
 gcp_project = "wireguard-393804"
 gcp_machine_type = "f1-micro"
+############################################
+
+
 
 # def show_progress(task):
 #     print("Running subprocess: ", end="", flush=True)
