@@ -67,41 +67,47 @@ gcp_machine_type = "f1-micro"
 
 
 # Convert VMWare VM to OVA
-print("Converting VMware VM to OVA file")
+print("Starting now")
+print("Convert a VMware VM to OVA file")
 task = subprocess.run( [f'{ovf_tool}', f'{vmdk_path}\{vmx_file}', f'{vmdk_path}\{ova_file}'], shell=True, check=True)
 #show_progress(task)
 print("OVA file was created")
-
+print("--------------------------------------------")
 
 
 # Upload the OVA file to GCP
 upload_command = f"gsutil cp {vmdk_path}\{ova_file} gs://{gcp_bucket}/"
-print("Uploading OVA file")
+print("Upload OVA file to GCP")
 subprocess.run(upload_command, shell=True, check=True)
-print("Uploading is completed")
-
+print("OVA file was uploaded to GCP")
+print("--------------------------------------------")
 
 
 #Create a GCP VM instance from the uploaded OVA
 create_instance_command = f"gcloud compute instances import {gcp_instance_name} --project={gcp_project} --zone={gcp_zone}  --source-uri=gs://{gcp_bucket}/{ova_file} --machine-type={gcp_machine_type}"
+print("Create a GCP VM instance for the uploaded OVA file")
 subprocess.run(create_instance_command, shell=True, check=True)
-
-
+print("GCP VM instance was created")
+print("--------------------------------------------")
 
 ###############
 # Housekeeping 
 ###############
 # delete OVA file on GCP's cloud storage
+print("Housekeeping now")
 delete_gcp_ova_file_cmd = f"gsutil rm gs://{gcp_bucket}/{ova_file}"
 print("deleting OVA file on GCP")
 subprocess.run(delete_gcp_ova_file_cmd, shell=True, check=True)
 print("OVA file on GCP was deleted")
+print("--------------------------------------------")
+
 
 # delete local OVA file
 delete_local_ova_file_cmd = f"del {vmdk_path}\{ova_file}"
 print("deleting local OVA file")
 subprocess.run(delete_local_ova_file_cmd, shell=True, check=True)
 print("local OVA file was deleted")
+print("--------------------------------------------")
 
-print("Your VM is on GCP now. Have fun with Google Cloud. :D")
+print("All tasks are done. Have fun with Google Cloud!")
 
