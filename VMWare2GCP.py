@@ -6,7 +6,7 @@ ovf_tool = 'C:\\Program Files\\VMware\\VMware OVF Tool\\ovftool.exe'
 vmdk_path ='G:\\VMWare-VMs\\UbuntuServer20046'
 vmx_file = 'UbuntuServer20046.vmx'
 ova_file = "ubuntuserver20046.ova"
-gcs_bucket = "20230906-1213"
+gcp_bucket = "20230906-1213"
 gcp_instance_name = "ubuntuserver20046-vm-01"
 gcp_zone = "asia-east1-b"
 gcp_project = "wireguard-393804"
@@ -75,7 +75,7 @@ print("OVA file was created")
 
 
 # Upload the OVA file to GCP
-upload_command = f"gsutil cp {vmdk_path}\{ova_file} gs://{gcs_bucket}/"
+upload_command = f"gsutil cp {vmdk_path}\{ova_file} gs://{gcp_bucket}/"
 print("Uploading OVA file")
 subprocess.run(upload_command, shell=True, check=True)
 print("Uploading is completed")
@@ -83,7 +83,7 @@ print("Uploading is completed")
 
 
 #Create a GCP VM instance from the uploaded OVA
-create_instance_command = f"gcloud compute instances import {gcp_instance_name} --project={gcp_project} --zone={gcp_zone}  --source-uri=gs://{gcs_bucket}/{ova_file} --machine-type={gcp_machine_type}"
+create_instance_command = f"gcloud compute instances import {gcp_instance_name} --project={gcp_project} --zone={gcp_zone}  --source-uri=gs://{gcp_bucket}/{ova_file} --machine-type={gcp_machine_type}"
 subprocess.run(create_instance_command, shell=True, check=True)
 
 
@@ -92,7 +92,7 @@ subprocess.run(create_instance_command, shell=True, check=True)
 # Housekeeping 
 ###############
 # delete OVA file on GCP's cloud storage
-delete_gcp_ova_file_cmd = f"gsutil rm gs://{gcs_bucket}/{ova_file}"
+delete_gcp_ova_file_cmd = f"gsutil rm gs://{gcp_bucket}/{ova_file}"
 print("deleting OVA file on GCP")
 subprocess.run(delete_gcp_ova_file_cmd, shell=True, check=True)
 print("OVA file on GCP was deleted")
